@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nebulock</string>
+    <string name="createaccount">Create Account</string>
+    <string name="email">Email Address:</string>
+    <string name="emailaddress">Email Address:</string>
+    <string name="confirmemailaddress">Confirm Email Address:</string>
+    <string name="password">Password:</string>
+    <string name="confirmpassword">Confirm Password:</string>
+    <string name="LoginScreen">Login Screen</string>
+    <string name="Login">Login</string>
+    <string name="settings">Settings</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="dont_have_account">Don\'t have an account? Create One!</string>
+    <string name="next">Next</string>
+    <string name="done">Done!</string>
+    
+    <string name="strength">Place holder strength indicator</string>
+    
+    <string name="whatsakeyring">What\'s a keyring?</string>
+    <string name="keyringexplanation">A keyring is a ring that you use to hold your keys. Lots of keys. Shiny kees. Very shiny kees.</string>
+	<string name="keyringexplanationbutton">I get it</string>
+    <string name="addVault">Add a Vault</string>
+    <string name="submitVault">Submit</string>
+	<string name="createkeyring">Create Your Keyring</string>
+	<string name="entermasterpassword">Enter Master Password:</string>
+	<string name="confirmmasterpassword">Confirm Master Password:</string>
+	<string name="securityquestion">Enter Security Question:</string>
+	<string name="securityquestionanswer">Enter Security Question Answer:</string>
+    <string name="newVault">Create a New Vault</string>
+    <string name="title_activity_vault_contents">VaultContents</string>
+    <string name="viewLogs">View Access Logs</string>
+    <string name="renameVault">Rename Vault</string>
+    <string name="changeAlias">Change Alias</string>
+    <string name="contactInfo">Contact Info</string>
+    <string name="addContact">Add Contact</string>
+    <string name="editContact">Edit Contact</string>
+    <string name="changeDescription">Change Description</string>
+    <string name="deleteVault">Delete This Vault</string>
+    <string name="addDel">Add Delegate</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="vaultContent">Vault Contents Here:</string>
+    <string name="action_settings">Settings</string>
+    <string name="editVaultString">Change Vault Contents Here:</string>
+    <string name="title_activity_view_vault_entry">ViewVaultEntry</string>
+    <string name="title_activity_edit_vault_entry">EditVaultEntry</string>
+    <string name="title_activity_vault_options">VaultOptions</string>
+    <string name="title_activity_add_entry">addEntry</string>
+    <string name="title_activity_vault_logs">vaultLogs</string>
+    <string name="title_activity_manage_delegates">manageDelegate</string>
+    <string name="title_activity_add_delegate">AddDelegate</string>
+    <string name="title_activity_new_vault">NewVault</string>
+    <string name="title_activity_manage_contacts">manageContacts</string>
+    <string name="title_activity_contact_info">ContactInfo</string>
+    <string name="title_activity_add_contact">AddContac</string>
+    <string name="title_activity_edit_contact">EditContact</string>
+    <string name="insertEntry">Insert Entry</string>
+    <string name="submitText">Submit</string>
+    <string name="manageDel">Manage Delegates</string>
+    <string name="vaultLogs">Vault Logs</string>
+		
+</resources>

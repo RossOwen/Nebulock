@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.psu.vaultinators.nebulock"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoginScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateAccount"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".KeyringInformation"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".CreateKeyring"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".VaultContents"
+            android:label="@string/title_activity_vault_contents" >
+        </activity>
+        <activity
+            android:name=".ViewVaultEntry"
+            android:label="@string/title_activity_view_vault_entry" >
+        </activity>
+        <activity
+            android:name=".EditVaultEntry"
+            android:label="@string/title_activity_edit_vault_entry" >
+        </activity>
+        <activity
+            android:name=".VaultHomeScreen"
+            android:label="@string/title_activity_edit_vault_entry" >
+        </activity>
+        <activity
+            android:name=".VaultOptions"
+            android:label="@string/title_activity_vault_options" >
+        </activity>
+        <activity
+            android:name=".addEntry"
+            android:label="@string/title_activity_add_entry" >
+        </activity>
+        <activity
+            android:name=".vaultLogs"
+            android:label="@string/title_activity_vault_logs" >
+        </activity>
+        <activity
+            android:name=".manageDelegates"
+            android:label="@string/title_activity_manage_delegates" >
+        </activity>
+        <activity
+            android:name=".AddDelegate"
+            android:label="@string/title_activity_add_delegate" >
+        </activity>
+        <activity
+            android:name=".NewVault"
+            android:label="@string/title_activity_new_vault" >
+        </activity>
+        <activity
+            android:name=".manageContacts"
+            android:label="@string/title_activity_manage_contacts" >
+        </activity>
+        <activity
+            android:name=".ContactInfo"
+            android:label="@string/title_activity_contact_info" >
+        </activity>
+        <activity
+            android:name=".AddContact"
+            android:label="@string/title_activity_add_contact" >
+        </activity>
+        <activity
+            android:name=".EditContact"
+            android:label="@string/title_activity_edit_contact" >
+        </activity>
+    </application>
+
+</manifest>
