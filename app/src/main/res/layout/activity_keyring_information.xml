@@ -37,7 +37,7 @@
         android:layout_alignRight="@+id/textViewKeyringExplanation"
         android:layout_below="@+id/textViewKeyringExplanation"
         android:text="@string/keyringexplanationbutton"
-        android:onClick="buttonPressed"
+        android:onClick="acceptKeyring"
         android:textColor="#ffffffff" />
 
 </RelativeLayout>

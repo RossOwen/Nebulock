@@ -59,5 +59,6 @@
     <string name="submitText">Submit</string>
     <string name="manageDel">Manage Delegates</string>
     <string name="vaultLogs">Vault Logs</string>
-		
+    <string name="email_key">email_key</string>
+    <string name="password_key">password_key</string>
 </resources>

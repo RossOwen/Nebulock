@@ -3,6 +3,7 @@ package edu.psu.vaultinators.nebulock;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class CreateKeyring extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
@@ -13,7 +14,7 @@ public class CreateKeyring extends Activity{
 	
 	// Called when user clicks "Done!" button after entering
 	// information into master password and security question fields
-	public void createKeyring(){
+	public void createKeyring(View view){
 		//TODO: Check for the following:
 		//       Master password matches confirm master password field
 		//       No fields are empty

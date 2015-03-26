@@ -3,6 +3,7 @@ package edu.psu.vaultinators.nebulock;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class KeyringInformation extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
@@ -12,7 +13,7 @@ public class KeyringInformation extends Activity{
 	
 	// User has (or hasn't!) read the explanation of keyrings,
 	// and has pressed the button to continue
-	public void buttonPressed(){
+	public void acceptKeyring(View view){
 		Intent intent = new Intent(getApplicationContext(), CreateKeyring.class);
 		startActivity(intent);
 	}
