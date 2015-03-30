@@ -137,7 +137,7 @@ public class LoginScreen extends Activity {
 	}
 
 	public void forgotPassword(View view){
-		//TODO: open dialog box, send email to user, etc..
+		//TODO: open dialog box, send email to user, etc...
 // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(LoginScreen.this);
         View promptView = layoutInflater.inflate(R.layout.forgotpasswordprompt, null);
@@ -161,6 +161,7 @@ public class LoginScreen extends Activity {
                         });
 
         // create an alert dialog
+        //really, create one
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 	}

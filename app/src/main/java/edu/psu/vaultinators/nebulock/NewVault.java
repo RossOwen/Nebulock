@@ -47,6 +47,7 @@ public class NewVault extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        //def for reals
         if (id == R.id.action_settings) {
             return true;
         }
