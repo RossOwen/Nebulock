@@ -37,9 +37,6 @@ public class LoginScreen extends Activity {
 		password = (EditText)findViewById(R.id.editTextPassword);
 		loginButton = (Button)findViewById(R.id.loginButton);
 	}
-
-	//TODO: Link forgot password and create account textViews to activities
-	//TODO: Link loginButton to login Dialog box thingy
 	
 	public void login(View view){
         final String userCred = username.getText().toString();
@@ -121,7 +118,7 @@ public class LoginScreen extends Activity {
         LoginBackgroundTask.execute(server + "/login", "GET");
 
 
-            //TODO: Add 1 to lockdown counter
+            //TODO: Add 1 to the lockdown counter
 
 
 		}
