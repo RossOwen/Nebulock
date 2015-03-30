@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.psu.vaultinators.nebulock.NewVault">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/addVault"
+        android:id="@+id/addVaultText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submitVault"
+        android:id="@+id/addVaultButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:onClick="submitTheVault" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/vaultNameText"
+        android:layout_marginTop="57dp"
+        android:hint="Vault Name"
+        android:layout_below="@+id/addVaultText"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vaultDescriptionText"
+        android:layout_marginTop="46dp"
+        android:hint="Vault Description"
+        android:layout_below="@+id/vaultNameText"
+        android:layout_alignLeft="@+id/vaultNameText"
+        android:layout_alignStart="@+id/vaultNameText"
+        android:layout_alignRight="@+id/vaultNameText"
+        android:layout_alignEnd="@+id/vaultNameText" />
+</RelativeLayout>

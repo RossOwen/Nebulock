@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/cgs5144/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/cgs5144/AndroidStudioProjects/NebulockMaster/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-e7adc945a51dfea1e7016d00dbdde8244dee059d.jar" />
+    </item>
+    <item
+        jar="/home/cgs5144/AndroidStudioProjects/NebulockMaster/app/libs/javax.mail.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="1592bd6ca4bf3605637c655b55d1e882d0aabef0">
+        <dex dex="/home/cgs5144/AndroidStudioProjects/NebulockMaster/app/build/intermediates/pre-dexed/debug/javax.mail-8a36ce88bcbda4c7eb6060edf5a143c55922c062.jar" />
+    </item>
+
+</items>
