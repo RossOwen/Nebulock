@@ -16,8 +16,8 @@ public class SystemUiHiderBase extends SystemUiHider {
 	private boolean mVisible = true;
 
 	/**
-	 * Constructor not intended to be called by clients. Use
-	 * {@link SystemUiHider#getInstance} to obtain an instance.
+	 * Constructor not intended to be called by clients.
+	 * Use {@link SystemUiHider#getInstance} to obtain an instance.
 	 */
 	protected SystemUiHiderBase(Activity activity, View anchorView, int flags) {
 		super(activity, anchorView, flags);

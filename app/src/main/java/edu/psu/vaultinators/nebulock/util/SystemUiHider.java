@@ -142,7 +142,7 @@ public abstract class SystemUiHider {
 	}
 
 	/**
-	 * Registers a callback, to be triggered when the system UI visibility
+	 * Registers callback, to be triggered when the system UI visibility
 	 * changes.
 	 */
 	public void setOnVisibilityChangeListener(

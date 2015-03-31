@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.ServerRequest;
+
 public class LoginScreen extends Activity {
     String server = "http://146.186.64.169:6917/bin";
     Boolean login = false;
@@ -36,11 +38,14 @@ public class LoginScreen extends Activity {
 		username = (EditText)findViewById(R.id.editTextEmail);
 		password = (EditText)findViewById(R.id.editTextPassword);
 		loginButton = (Button)findViewById(R.id.loginButton);
+
 	}
 	
 	public void login(View view){
         final String userCred = username.getText().toString();
         final String passwordCred = password.getText().toString();
+
+        /*
         AsyncTask<String, Void, Void> LoginBackgroundTask = new AsyncTask<String, Void, Void> () {
             protected Void doInBackground(String... urls) {
                 ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -74,6 +79,7 @@ public class LoginScreen extends Activity {
                     if(res.isNull(0)){ //wrong credentials
                         runOnUiThread(new Runnable() {
                             public void run() {
+                                login = false;
                                 Toast.makeText(LoginScreen.this, "Incorrect credentials. Please try again.", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -105,23 +111,56 @@ public class LoginScreen extends Activity {
                     Log.e("ERROR", e.getMessage());
                     return null;
                 }
+
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if (login == true) {
+                    Intent vaultHomeIntent = new Intent(LoginScreen.this, VaultHomeScreen.class);
+                    startActivity(vaultHomeIntent);
+                }
+                else {
+                    Log.e("FAILURE", "The login credentials were incorrect.");
+                }
             }
         };
-        //TODO: Move this to onPostExecute
-        if (login == true) {
-            Intent intent = new Intent(this, VaultHomeScreen.class);
-            startActivity(intent);
-        }
-        else {
-            Log.e("FAILURE", "The login credentials were incorrect.");
-        }
         LoginBackgroundTask.execute(server + "/login", "GET");
 
+        */
 
-            //TODO: Add 1 to the lockdown counter
 
 
-		}
+        ServerRequest loginRequest = new ServerRequest() {
+
+            @Override
+            protected void onSuccess(JSONObject data) {
+                Toast.makeText(LoginScreen.this, "Redirecting...", Toast.LENGTH_SHORT).show();
+                Intent vaultHomeIntent = new Intent(LoginScreen.this, VaultHomeScreen.class);
+                startActivity(vaultHomeIntent);
+            }
+
+            @Override
+            protected void onFailure(String message, JSONObject data) {
+                super.onFailure(message, data);
+                Toast.makeText(LoginScreen.this, "Invalid credentials. Please try again", Toast.LENGTH_SHORT).show();
+                //TODO: Add 1 to the lockdown counter
+            }
+
+            @Override
+            protected void onError(String message, Integer code, JSONObject data) {
+                super.onError(message, code, data);
+            }
+        };
+
+        loginRequest
+                .setPath("bin/login")
+                .setParameter("email", userCred)
+                .setParameter("password", passwordCred)
+                .execute();
+
+	}
 	
 	//Menu probably unneeded for login page
 	/*@Override
@@ -135,6 +174,15 @@ public class LoginScreen extends Activity {
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
 	}
+
+    public boolean checkPassword(String password){
+        if ((password.length() < 6) || (!(password.matches(".*\\d.*")))){
+            Toast.makeText(LoginScreen.this, "Password must contain at least six characters and at least one number. Please try another password.", Toast.LENGTH_LONG).show();
+ 
+            return false;
+        }
+        return true;
+    }
 
 	public void forgotPassword(View view){
 		//TODO: open dialog box, send email to user, etc...
@@ -161,7 +209,6 @@ public class LoginScreen extends Activity {
                         });
 
         // create an alert dialog
-        //really, create one
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 	}

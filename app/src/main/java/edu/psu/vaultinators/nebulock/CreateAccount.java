@@ -1,6 +1,8 @@
 package edu.psu.vaultinators.nebulock;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +23,8 @@ import java.util.ArrayList;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
+import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 public class CreateAccount extends Activity{
     String server = "http://146.186.64.169:6917/bin";
@@ -61,20 +66,13 @@ public class CreateAccount extends Activity{
             Toast.makeText(getApplicationContext(), "Password and Confirm Password must be identical.", Toast.LENGTH_SHORT).show();
         }
         else{
+            /*
             AsyncTask<String, Void, Void> createAccountBackgroundTask = new AsyncTask<String, Void, Void> () {
 
                 protected Void doInBackground(String... urls) {
                     ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                    params.add(new NameValuePair() {
-                        @Override
-                        public String getName() {
-                            return "email";
-                        }
-                        @Override
-                        public String getValue() {
-                            return emailCred;
-                        }
-                    });
+                    params.add(new BasicNameValuePair("email", emailCred));
+                    params.add(new BasicNameValuePair("password", passwordCred));
 
                     JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
 
@@ -105,7 +103,7 @@ public class CreateAccount extends Activity{
 
                             //create the account
                             //TODO: fix the below to take params correctly, by generalizing the above
-                            json = JSONParser.makeHttpRequest(server + "/createAccount?email=" + emailCred + "&password=" + passwordCred, "GET", new ArrayList<NameValuePair>());
+                            json = JSONParser.makeHttpRequest(server + "/createAccount", "GET", params);
 
                             //TODO: test to see if createAccount was a success
                             //TODO: Dialog box saying an account has been created
@@ -131,19 +129,39 @@ public class CreateAccount extends Activity{
                 }
             };
 
+            */
 
-            createAccountBackgroundTask.execute(server + "/getAccount");
+            ServerRequest createAccountRequest = new ServerRequest() {
 
-           //String getEmail = server + "/getAccount?email=" + emailCred;
-            //JSONObject json = JSONParser.makeHttpRequest(getEmail, "GET", new ArrayList<NameValuePair>());
+                @Override
+                protected void onSuccess(JSONObject data) {
+
+                    // Inform the user that they've logged in
+                    Toast.makeText(CreateAccount.this, "Your account has been created. Enjoy Nebulock!", Toast.LENGTH_LONG).show();
+
+                    // Finish Activity
+                    finish();
+
+                }
+
+                @Override
+                protected void onFailure(String message, JSONObject data) {
+                    super.onFailure(message, data);
+                }
+
+                @Override
+                protected void onError(String message, Integer code, JSONObject data) {
+                    super.onError(message, code, data);
+                }
+            };
+
+            createAccountRequest
+                .setPath("bin/createAccount")
+                .setParameter("email", emailCred)
+                .setParameter("password", passwordCred)
+                .execute();
 
         }
-        /*else {
-            Toast.makeText(getApplicationContext(), "You alright.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), KeyringInformation.class);
-            startActivity(intent);
-            //TODO: destroy activity? shouldn't allow user to go back, right?
-        }*/
 	}
 
     public static boolean isValidEmailAddress(String email) {

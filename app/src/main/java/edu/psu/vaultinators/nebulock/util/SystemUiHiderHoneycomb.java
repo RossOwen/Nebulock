@@ -39,8 +39,8 @@ public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
 	private boolean mVisible = true;
 
 	/**
-	 * Constructor not intended to be called by clients. Use
-	 * {@link SystemUiHider#getInstance} to obtain an instance.
+	 * Constructor not intended to be called by clients.
+	 * Use {@link SystemUiHider#getInstance} to obtain an instance.
 	 */
 	protected SystemUiHiderHoneycomb(Activity activity, View anchorView,
 			int flags) {
