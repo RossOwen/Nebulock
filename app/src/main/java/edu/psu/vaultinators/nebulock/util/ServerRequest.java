@@ -212,7 +212,7 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
             }
 
         } catch (Exception e) {
-            Log.e("error", e.toString());
+            e.printStackTrace();
         }
 
         return null;
@@ -257,7 +257,18 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
 
                 if (result.equals(JSON_RESULT_SUCCESS)) {
 
-                    onSuccess(jsonObject);
+
+                    JSONObject data = null;
+
+                    try {
+
+                        data = jsonObject.getJSONObject(JSON_FLAG_DATA);
+
+                    } catch (JSONException JSONe) {
+                        JSONe.printStackTrace();
+                    }
+
+                    onSuccess(data);
 
                 } else if (result.equals(JSON_RESULT_FAILURE)) {
 

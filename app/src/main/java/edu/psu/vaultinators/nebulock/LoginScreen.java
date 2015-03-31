@@ -39,104 +39,31 @@ public class LoginScreen extends Activity {
 		password = (EditText)findViewById(R.id.editTextPassword);
 		loginButton = (Button)findViewById(R.id.loginButton);
 
+        //This kills the app
+        //ServerRequest req = new ServerRequest();
+        //req.setHost("146.186.64.168").setScheme("https://").setPort(8443).setPath("nebulock/").execute();
+
+
 	}
 	
 	public void login(View view){
         final String userCred = username.getText().toString();
         final String passwordCred = password.getText().toString();
 
-        /*
-        AsyncTask<String, Void, Void> LoginBackgroundTask = new AsyncTask<String, Void, Void> () {
-            protected Void doInBackground(String... urls) {
-                ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "email";
-                    }
-                    @Override
-                    public String getValue() {
-                        return userCred;
-                    }
-                });
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "password";
-                    }
-
-                    @Override
-                    public String getValue() {
-                        return passwordCred;
-                    }
-                });
-                Log.e("URL", urls[0]);
-                JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
-
-                try {
-                    Log.e("URL2", urls[0]);
-                    JSONArray res = json.getJSONArray("records");
-                    if(res.isNull(0)){ //wrong credentials
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                login = false;
-                                Toast.makeText(LoginScreen.this, "Incorrect credentials. Please try again.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    } else { //correct credentials
-
-                            runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(LoginScreen.this, "Redirecting...", Toast.LENGTH_SHORT).show();
-                                login = true;
-                                Context context = getApplicationContext();
-                                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(getString(R.string.email_key), userCred);
-                                editor.commit();
-                                sharedPreferences = context.getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE);
-                                editor = sharedPreferences.edit();
-                                editor.putString(getString(R.string.password_key), passwordCred);
-                                editor.commit();
-
-                            }
-                        });
-
-
-
-                    }
-                    return null;
-                }
-                catch(Exception e){
-                    Log.e("ERROR", e.getMessage());
-                    return null;
-                }
-
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if (login == true) {
-                    Intent vaultHomeIntent = new Intent(LoginScreen.this, VaultHomeScreen.class);
-                    startActivity(vaultHomeIntent);
-                }
-                else {
-                    Log.e("FAILURE", "The login credentials were incorrect.");
-                }
-            }
-        };
-        LoginBackgroundTask.execute(server + "/login", "GET");
-
-        */
-
-
-
         ServerRequest loginRequest = new ServerRequest() {
 
             @Override
             protected void onSuccess(JSONObject data) {
                 Toast.makeText(LoginScreen.this, "Redirecting...", Toast.LENGTH_SHORT).show();
+                Context context = getApplicationContext();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.email_key), userCred);
+                editor.commit();
+                sharedPreferences = context.getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.password_key), passwordCred);
+                editor.commit();
                 Intent vaultHomeIntent = new Intent(LoginScreen.this, VaultHomeScreen.class);
                 startActivity(vaultHomeIntent);
             }

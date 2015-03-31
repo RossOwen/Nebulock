@@ -37,7 +37,8 @@
 		android:layout_marginLeft="32dp"
 		android:layout_toRightOf="@+id/textViewEmail"
 		android:ems="10"
-		android:inputType="textWebEmailAddress">
+		android:inputType="textWebEmailAddress"
+        android:text="conslay@psu.edu">
 		
 			<requestFocus />
 	</EditText>

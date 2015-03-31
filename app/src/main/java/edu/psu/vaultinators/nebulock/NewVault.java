@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.ServerRequest;
+
 
 public class NewVault extends Activity {
     String server = "http://146.186.64.169:6917/bin";
@@ -65,95 +67,30 @@ public class NewVault extends Activity {
             Toast.makeText(getApplicationContext(), "Please enter a vault name.", Toast.LENGTH_SHORT).show();
              }
         else{
-            AsyncTask<String, Void, Void> newVaultBackgroundTask = new AsyncTask<String, Void, Void> () {
+            ServerRequest newVaultRequest = new ServerRequest() {
 
-                protected Void doInBackground(String... urls) {
-                    ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                    params.add(new NameValuePair() {
-                        @Override
-                        public String getName() {
-                            return "vaultName";
-                        }
-                        @Override
-                        public String getValue() {
-                            return vaultName;
-                        }
-                    });
-                    params.add(new NameValuePair() {
-                        @Override
-                        public String getName() {
-                            return "vaultDescription";
-                        }
-                        @Override
-                        public String getValue() {
-                            return vaultDescription;
-                        }
-                    });
-                    params.add(new NameValuePair() {
-                        @Override
-                        public String getName() {
-                            return "email";
-                        }
-                        @Override
-                        public String getValue() {return email; }
-                    });
-                    params.add(new NameValuePair() {
-                        @Override
-                        public String getName() {
-                            return "password";
-                        }
-                        @Override
-                        public String getValue() {
-                            return password;
-                        }
-                    });
+                @Override
+                protected void onSuccess(JSONObject data) {
+                    super.onSuccess(data);
 
-                    final JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
+                }
 
-                    try {
-                        String status = json.getString("result");
+                @Override
+                protected void onFailure(String message, JSONObject data) {
+                    super.onFailure(message, data);
+                }
 
-                        Log.e("JSONOUTPUT", json.toString());
-                        if(status.equals("success")){ //found email in the database - don't create the account
-                            //if (json.getJSONArray("records").getJSONObject(0).getString("email") != null) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-
-                                    Toast.makeText(NewVault.this, "The Vault has been created", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            finish();
-                        } else if (status.equals("failure")) { //email not found in database - create the account
-
-
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        Toast.makeText(NewVault.this, json.getString("data"), Toast.LENGTH_LONG).show();
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        Log.e("Error", e.getMessage());
-                                    }
-                                }
-                            });
-
-
-
-
-
-                        }
-                        return null;
-                    }
-                    catch(Exception e){
-                        Log.e("ERROR", e.getMessage());
-                        return null;
-                    }
+                @Override
+                protected void onError(String message, Integer code, JSONObject data) {
+                    super.onError(message, code, data);
                 }
             };
-            newVaultBackgroundTask.execute(server + "/doCreateVault");
 
-
+            newVaultRequest
+                    .setPath("bin/doCreateVault")
+                    //.setParameter("email", emailCred)
+                   // .setParameter("password", passwordCred)
+                    .execute();
         }
     }
 }
