@@ -1,74 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="5dp"
     android:paddingRight="5dp">
 
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Vault Name: "
-            android:id="@+id/vaultItemNameLabel" />
+            android:id="@+id/vaultItemNameLabel"
+            android:layout_alignParentLeft="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Name Placeholder"
-            android:id="@+id/vaultItemName" />
+            android:id="@+id/vaultItemName"
+            android:layout_toRightOf="@id/vaultItemNameLabel"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="right">
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Id Placeholder"
+            android:id="@+id/vaultItemId"
+            android:layout_alignParentRight="true"/>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Vault ID: "
-                android:id="@+id/vaultItemIdLabel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Id Placeholder"
-                android:id="@+id/vaultItemId" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Vault ID: "
+            android:id="@+id/vaultItemIdLabel"
+            android:layout_toLeftOf="@id/vaultItemId"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Description: "
-            android:id="@+id/vaultItemDescriptionLabel" />
+            android:id="@+id/vaultItemDescriptionLabel"
+            android:layout_below="@id/vaultItemNameLabel"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Description Placeholder"
-            android:id="@+id/vaultItemDescription" />
-    </LinearLayout>
+            android:id="@+id/vaultItemDescription"
+            android:layout_below="@id/vaultItemNameLabel"
+            android:layout_toRightOf="@id/vaultItemDescriptionLabel"/>
 
-</LinearLayout>
+</RelativeLayout>

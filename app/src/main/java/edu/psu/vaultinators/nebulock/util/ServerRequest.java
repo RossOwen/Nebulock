@@ -8,12 +8,15 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,24 +138,18 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
 
     protected String getQueryString() {
 
-        if (queryParams == null) return "";
+        if (queryParams == null) return null;
 
         StringBuilder retVal = new StringBuilder("?");
 
-        boolean first = true;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         for (String key : queryParams.keySet()) {
 
-            if (!first) {
-
-                retVal.append("&");
-
-            } else first = false;
-
-            retVal.append(key + "=" + queryParams.get(key));
+            params.add(new BasicNameValuePair(key, queryParams.get(key)));
         }
 
-        return retVal.toString();
+        return URLEncodedUtils.format(params, "utf-8");
     }
 
     private String buildURI() throws InvalidURIException {
@@ -175,8 +172,10 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
             URI.append("/").append(path);
         } else throw new InvalidURIException();
 
-        if ( queryParams != null ) {
-            URI.append(getQueryString());
+        String queryString = getQueryString();
+
+        if ( queryString != null ) {
+            URI.append("?" + queryString);
         }
 
         Log.e( "URI String ->", URI.toString() );

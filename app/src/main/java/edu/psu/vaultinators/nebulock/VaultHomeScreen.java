@@ -92,10 +92,10 @@ public class VaultHomeScreen extends Activity {
 
     }
 
-
     public void populateListViewWithVaults(JSONArray vaults){
 
         ListView listView = (ListView)findViewById(R.id.vaultListView);
+        listAdapterData.clear();
 
         for(int i = 0; i < vaults.length(); i++){
             HashMap<String, String> vaultInfo = new HashMap<String, String>();

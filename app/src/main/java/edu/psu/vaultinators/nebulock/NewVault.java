@@ -58,11 +58,12 @@ public class NewVault extends Activity {
     }
 
     public void submitTheVault(View view){
+
+        final String emailCred = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
+        final String passwordCred = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
         Log.e("Message", "The submitVault button has been pressed");
         final String vaultName = vaultNameText.getText().toString();
         final String vaultDescription = vaultDescriptionText.getText().toString();
-        final String email = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
-        final String password = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
         if (vaultName.equals("")){
             Toast.makeText(getApplicationContext(), "Please enter a vault name.", Toast.LENGTH_SHORT).show();
              }
@@ -88,8 +89,10 @@ public class NewVault extends Activity {
 
             newVaultRequest
                     .setPath("bin/doCreateVault")
-                    //.setParameter("email", emailCred)
-                   // .setParameter("password", passwordCred)
+                    .setParameter("email", emailCred)
+                    .setParameter("password", passwordCred)
+                    .setParameter("vaultName", vaultName)
+                    .setParameter("vaultDescription", vaultDescription)
                     .execute();
         }
     }

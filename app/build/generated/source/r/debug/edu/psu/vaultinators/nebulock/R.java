@@ -86,8 +86,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vaultHomeID=0x7f09002d;
         public static final int vaultItemDescription=0x7f09003e;
         public static final int vaultItemDescriptionLabel=0x7f09003d;
-        public static final int vaultItemId=0x7f09003c;
-        public static final int vaultItemIdLabel=0x7f09003b;
+        public static final int vaultItemId=0x7f09003b;
+        public static final int vaultItemIdLabel=0x7f09003c;
         public static final int vaultItemName=0x7f09003a;
         public static final int vaultItemNameLabel=0x7f090039;
         public static final int vaultListView=0x7f09002f;

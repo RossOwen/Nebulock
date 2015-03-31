@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/vaultListView"
         android:layout_above="@+id/newVaultButton"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
