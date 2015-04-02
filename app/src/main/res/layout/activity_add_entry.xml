@@ -10,14 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/insertEntry"
-        android:id="@+id/newEntry"
+        android:text="@string/insertEntryName"
+        android:id="@+id/newEntryTextView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/submitButton" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -25,5 +24,58 @@
         android:text="@string/submitText"
         android:id="@+id/submitButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="addNewEntryToVault" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Entry Text: "
+        android:id="@+id/newEntryContentsTextView"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/addEntryNameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/addEntryLayoutBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/newEntryContentsTextView"
+        android:layout_above="@id/submitButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addEntryContentsEditText"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@id/newEntryTextView"
+            android:layout_alignEnd="@id/newEntryTextView"
+            android:hint="Text"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addEntryNameEditText"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        android:layout_marginTop="31dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/newEntryTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/newEntryTextView"
+        android:layout_alignEnd="@+id/newEntryTextView" />
+
+
 </RelativeLayout>

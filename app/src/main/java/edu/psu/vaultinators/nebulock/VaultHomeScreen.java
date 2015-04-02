@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 public class VaultHomeScreen extends Activity {
@@ -53,7 +54,7 @@ public class VaultHomeScreen extends Activity {
 
         //createAccountBackgroundTask.execute(server + "/doGetVaults");
 
-        ServerRequest getVaultsRequest = new ServerRequest() {
+        ServerRequest getVaultsRequest = new SecureServerRequest() {
 
             @Override
             protected void onSuccess(JSONObject data) {
@@ -128,12 +129,11 @@ public class VaultHomeScreen extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                int vaultId = Integer.parseInt(((HashMap)(listView.getItemAtPosition(position))).get("vaultID").toString());
-
+                String vaultId = ((HashMap)(listView.getItemAtPosition(position))).get("vaultID").toString();
                 Context context = getApplicationContext();
                 SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt(getString(R.string.vault_id_key), vaultId);
+                editor.putString(getString(R.string.vault_id_key), vaultId);
                 editor.commit();
                 Toast.makeText(getBaseContext(), "Opening Vault " + vaultId + "...", Toast.LENGTH_LONG).show();
                 Intent openVaultIntent = new Intent(VaultHomeScreen.this, ViewVaultEntries.class);

@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="/home/cgs5144/AndroidStudioProjects/NebulockMaster/app/libs/passay-1.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="d483c093cbf1c19ed1e94d599a5ab45cd7d1c8eb">
+        <dex dex="/home/cgs5144/AndroidStudioProjects/NebulockMaster/app/build/intermediates/pre-dexed/debug/passay-1.0-e707bf132a3c08600ce988782474bb81b5bc486f.jar" />
+    </item>
+    <item
         jar="/home/cgs5144/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="22.0.0"

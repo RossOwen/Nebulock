@@ -1,7 +1,11 @@
 package edu.psu.vaultinators.nebulock;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 
@@ -44,9 +49,9 @@ public class ViewVaultEntries extends Activity {
         listAdapterData = new ArrayList<HashMap<String, String>>();
         final String email = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
         final String password = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
-        final int vaultId = (getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE)).getInt(getString(R.string.vault_id_key), -1);
+        final String vaultId = (getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE)).getString(getString(R.string.vault_id_key), "-1");
 
-        ServerRequest getEntriesRequest = new ServerRequest() {
+        ServerRequest getEntriesRequest = new SecureServerRequest() {
             @Override
             protected void onSuccess(JSONObject data) {
                 super.onSuccess(data);
@@ -76,7 +81,7 @@ public class ViewVaultEntries extends Activity {
 
         getEntriesRequest
                 .setPath("bin/doGetEntries")
-                .setParameter("vaultID", Integer.toString(vaultId))
+                .setParameter("vaultID", vaultId)
                 .execute();
     }
 
@@ -115,6 +120,15 @@ public class ViewVaultEntries extends Activity {
         });
     }
 
+    public void addEntryToVault(View view){
+        String vaultId = (getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE)).getString(getString(R.string.vault_id_key), "-1");
+        if(!vaultId.equals("-1")){
+            Intent addEntryIntent = new Intent(ViewVaultEntries.this, addEntry.class);
+            startActivity(addEntryIntent);
+        } else{
+            //error
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

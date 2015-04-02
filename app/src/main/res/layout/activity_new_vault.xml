@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/vaultDescriptionText"
+        android:inputType="textPersonName"
         android:layout_marginTop="46dp"
         android:hint="Vault Description"
         android:layout_below="@+id/vaultNameText"

@@ -18,12 +18,24 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.passay.DigitCharacterRule;
+import org.passay.LengthRule;
+import org.passay.LowercaseCharacterRule;
+import org.passay.PasswordData;
+import org.passay.PasswordValidator;
+import org.passay.RuleResult;
+import org.passay.SpecialCharacterRule;
+import org.passay.UppercaseCharacterRule;
+import org.passay.WhitespaceRule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+
+import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 public class CreateAccount extends Activity{
@@ -69,72 +81,8 @@ public class CreateAccount extends Activity{
             Toast.makeText(getApplicationContext(), "Password and Confirm Password must be identical.", Toast.LENGTH_SHORT).show();
         }
         else{
-            /*
-            AsyncTask<String, Void, Void> createAccountBackgroundTask = new AsyncTask<String, Void, Void> () {
 
-                protected Void doInBackground(String... urls) {
-                    ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                    params.add(new BasicNameValuePair("email", emailCred));
-                    params.add(new BasicNameValuePair("password", passwordCred));
-
-                    JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
-
-                    try {
-                        JSONArray res = json.getJSONArray("records");
-                        if(!res.isNull(0)){ //found email in the database - don't create the account
-                            //if (json.getJSONArray("records").getJSONObject(0).getString("email") != null) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-
-                                    Toast.makeText(CreateAccount.this, "The email specified is already associated with an account. Please try a different email.", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        } else { //email not found in database - create the account
-
-                            //save the information the user entered to create the account later
-                            Context context = getApplicationContext();
-                            SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(getString(R.string.email_key), emailCred);
-                            editor.commit();
-                            sharedPreferences = context.getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE);
-                            editor = sharedPreferences.edit();
-                            editor.putString(getString(R.string.password_key), passwordCred);
-                            editor.commit();
-
-                            //TODO: Don't finish creating the user's account until they create security questions, keyring
-
-                            //create the account
-                            //TODO: fix the below to take params correctly, by generalizing the above
-                            json = JSONParser.makeHttpRequest(server + "/createAccount", "GET", params);
-
-                            //TODO: test to see if createAccount was a success
-                            //TODO: Dialog box saying an account has been created
-
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-
-                                    Toast.makeText(CreateAccount.this, "Your account has been created. Enjoy Nebulock!", Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                            finish();
-
-
-
-                        }
-                        return null;
-                    }
-                    catch(Exception e){
-                        Log.e("ERROR", e.getMessage());
-                        return null;
-                    }
-                }
-            };
-
-            */
-
-            ServerRequest createAccountRequest = new ServerRequest() {
+            ServerRequest createAccountRequest = new SecureServerRequest() {
 
                 @Override
                 protected void onSuccess(JSONObject data) {
@@ -179,10 +127,24 @@ public class CreateAccount extends Activity{
     }
 
     public boolean checkPassword(String password){
-        if ((password.length() < 7) || (!(password.matches(".*\\d.*")))){
-            return false;
-        }
-        return true;
+        PasswordValidator validator = new PasswordValidator(Arrays.asList(
+                // length between 7 and 30 characters
+                new LengthRule(7, 30),
+
+                // at least one upper-case character
+                new UppercaseCharacterRule(1),
+
+                // at least one lower-case character
+                new LowercaseCharacterRule(1),
+
+                // at least one digit character
+                new DigitCharacterRule(1),
+
+                // no whitespace
+                new WhitespaceRule()));
+
+        RuleResult result = validator.validate(new PasswordData(password));
+        return result.isValid();
     }
 
 }

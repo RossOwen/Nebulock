@@ -55,12 +55,18 @@
     <string name="title_activity_contact_info">ContactInfo</string>
     <string name="title_activity_add_contact">AddContac</string>
     <string name="title_activity_edit_contact">EditContact</string>
-    <string name="insertEntry">Insert Entry</string>
+    <string name="insertEntryName">Entry Name: </string>
     <string name="submitText">Submit</string>
     <string name="manageDel">Manage Delegates</string>
     <string name="vaultLogs">Vault Logs</string>
     <string name="email_key">email_key</string>
     <string name="password_key">password_key</string>
     <string name="vault_id_key">vault_id_key</string>
+    <string name="add_entry_name">Placeholder Entry Name</string>
     <string name="title_activity_vault_home">Vault Home Screen</string>
+    <string name="editEntryChoice">How would you like to edit this entry?</string>
+    <string name="editTheEntry">Edit Entry</string>
+    <string name="deleteTheEntry">Delete Entry</string>
+    <string name="cancelEdit">Cancel</string>
+    <string name="title_activity_vault_lock_out">vaultLockOut</string>
 </resources>

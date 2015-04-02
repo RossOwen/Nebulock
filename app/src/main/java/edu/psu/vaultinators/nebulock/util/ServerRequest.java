@@ -5,21 +5,35 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import edu.psu.vaultinators.nebulock.util.NebulockSSLFactory;
 
 public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
 
@@ -33,8 +47,8 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
     private static final String JSON_RESULT_ERROR = "error";
 
     public static final String SERVER_HOST = "146.186.64.169";
-    public static final int SERVER_PORT = 6917;
-    public static final String SCHEME_HTTP = "http://";
+    public static final int SERVER_PORT = 6918;
+    public static final String SCHEME_HTTP = "https://";
 
     public class InvalidURIException extends Exception {}
 
@@ -70,6 +84,10 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
         setScheme(SCHEME_HTTP);
         setHost(SERVER_HOST);
         setPort(SERVER_PORT);
+    }
+
+    public synchronized HttpClient getHTTPClient() {
+        return new DefaultHttpClient();
     }
 
     public ServerRequest setScheme (String s) throws NullPointerException, IllegalArgumentException {
@@ -188,7 +206,7 @@ public class ServerRequest extends AsyncTask <Void, Integer, JSONObject> {
         try {
 
             HttpGet httppost = new HttpGet(buildURI());
-            HttpClient httpclient = new DefaultHttpClient();
+            HttpClient httpclient = getHTTPClient();
             HttpResponse response = httpclient.execute(httppost);
 
             // StatusLine stat = response.getStatusLine();

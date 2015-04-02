@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 
@@ -67,7 +68,7 @@ public class NewVault extends Activity {
             Toast.makeText(getApplicationContext(), "Please enter a vault name.", Toast.LENGTH_SHORT).show();
              }
         else{
-            ServerRequest newVaultRequest = new ServerRequest() {
+            ServerRequest newVaultRequest = new SecureServerRequest() {
 
                 @Override
                 protected void onSuccess(JSONObject data) {
