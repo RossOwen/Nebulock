@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ViewVaultEntry extends Activity {
+public class ViewVaultEntries extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
