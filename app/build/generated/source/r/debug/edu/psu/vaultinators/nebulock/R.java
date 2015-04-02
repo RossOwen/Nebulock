@@ -29,7 +29,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f090039;
+        public static final int action_settings=0x7f090046;
         public static final int addContactText=0x7f090000;
         public static final int addDelegateText=0x7f090002;
         public static final int addVaultButton=0x7f09002a;
@@ -37,10 +37,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int buttonCreateAccount=0x7f090011;
         public static final int buttonCreateKeyring=0x7f09001b;
         public static final int buttonKeyringExplanation=0x7f09001f;
-        public static final int changeAliasButton=0x7f090033;
+        public static final int changeAliasButton=0x7f090034;
         public static final int contactInfoText=0x7f090005;
-        public static final int deleteVaultButton=0x7f090035;
-        public static final int descriptionButton=0x7f090034;
+        public static final int deleteVaultButton=0x7f090036;
+        public static final int descriptionButton=0x7f090035;
         public static final int editContactText=0x7f09001c;
         public static final int editContentText=0x7f09001d;
         public static final int editTextCreateAccountConfirmEmail=0x7f09000b;
@@ -53,19 +53,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int editTextCreateKeyringSecurityQuestion=0x7f090018;
         public static final int editTextEmail=0x7f090022;
         public static final int editTextPassword=0x7f090024;
-        public static final int edittext=0x7f090038;
-        public static final int listView=0x7f09002f;
-        public static final int logText=0x7f090030;
+        public static final int edittext=0x7f09003f;
+        public static final int entryItemCreatedByLabel=0x7f09003c;
+        public static final int entryItemEmailCreatedBy=0x7f09003d;
+        public static final int entryItemName=0x7f090039;
+        public static final int entryItemText=0x7f09003b;
+        public static final int entryItemVaultID=0x7f09003a;
+        public static final int entryListView=0x7f09002d;
+        public static final int entryNameLabel=0x7f090038;
+        public static final int logText=0x7f090031;
         public static final int loginButton=0x7f090025;
         public static final int manageContactText=0x7f090027;
         public static final int manageText=0x7f090028;
         public static final int newEntry=0x7f090003;
-        public static final int newVaultButton=0x7f09002e;
-        public static final int renameButton=0x7f090032;
+        public static final int newVaultButton=0x7f09002f;
+        public static final int renameButton=0x7f090033;
         public static final int submitButton=0x7f090004;
         public static final int submitContactButton=0x7f090001;
-        public static final int textView=0x7f090037;
-        public static final int textView2=0x7f090036;
+        public static final int textView=0x7f09003e;
+        public static final int textView2=0x7f090037;
         public static final int textViewAppName=0x7f090020;
         public static final int textViewCreateAccount=0x7f090006;
         public static final int textViewCreateAccountConfirmEmail=0x7f09000a;
@@ -84,9 +90,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textViewStrength=0x7f090010;
         public static final int textViewWhatIsAKeyring=0x7f09001e;
         public static final int vaultDescriptionText=0x7f09002c;
-        public static final int vaultHomeID=0x7f09002d;
+        public static final int vaultHomeID=0x7f09002e;
+        public static final int vaultItemDescription=0x7f090045;
+        public static final int vaultItemDescriptionLabel=0x7f090044;
+        public static final int vaultItemId=0x7f090042;
+        public static final int vaultItemIdLabel=0x7f090043;
+        public static final int vaultItemName=0x7f090041;
+        public static final int vaultItemNameLabel=0x7f090040;
+        public static final int vaultListView=0x7f090030;
         public static final int vaultNameText=0x7f09002b;
-        public static final int viewLogButton=0x7f090031;
+        public static final int viewLogButton=0x7f090032;
     }
     public static final class layout {
         public static final int activity_add_contact=0x7f030000;
@@ -107,7 +120,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_vault_logs=0x7f03000f;
         public static final int activity_vault_options=0x7f030010;
         public static final int activity_view_vault_entry=0x7f030011;
-        public static final int forgotpasswordprompt=0x7f030012;
+        public static final int entries_list_item=0x7f030012;
+        public static final int forgotpasswordprompt=0x7f030013;
+        public static final int vault_list_item=0x7f030014;
     }
     public static final class menu {
         public static final int menu_add_contact=0x7f080000;
@@ -176,13 +191,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_activity_manage_delegates=0x7f060030;
         public static final int title_activity_new_vault=0x7f060031;
         public static final int title_activity_vault_contents=0x7f060032;
-        public static final int title_activity_vault_logs=0x7f060033;
-        public static final int title_activity_vault_options=0x7f060034;
-        public static final int title_activity_view_vault_entry=0x7f060035;
-        public static final int vaultContent=0x7f060036;
-        public static final int vaultLogs=0x7f060037;
-        public static final int viewLogs=0x7f060038;
-        public static final int whatsakeyring=0x7f060039;
+        public static final int title_activity_vault_home=0x7f060033;
+        public static final int title_activity_vault_logs=0x7f060034;
+        public static final int title_activity_vault_options=0x7f060035;
+        public static final int title_activity_view_vault_entry=0x7f060036;
+        public static final int vaultContent=0x7f060037;
+        public static final int vaultLogs=0x7f060038;
+        public static final int vault_id_key=0x7f060039;
+        public static final int viewLogs=0x7f06003a;
+        public static final int whatsakeyring=0x7f06003b;
     }
     public static final class style {
         /** 

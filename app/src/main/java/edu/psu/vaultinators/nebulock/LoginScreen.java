@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.ServerRequest;
+
 public class LoginScreen extends Activity {
     String server = "http://146.186.64.169:6917/bin";
     Boolean login = false;
@@ -36,92 +38,56 @@ public class LoginScreen extends Activity {
 		username = (EditText)findViewById(R.id.editTextEmail);
 		password = (EditText)findViewById(R.id.editTextPassword);
 		loginButton = (Button)findViewById(R.id.loginButton);
+
+        //This kills the app
+        //ServerRequest req = new ServerRequest();
+        //req.setHost("146.186.64.168").setScheme("https://").setPort(8443).setPath("nebulock/").execute();
+
+
 	}
 	
 	public void login(View view){
         final String userCred = username.getText().toString();
         final String passwordCred = password.getText().toString();
-        AsyncTask<String, Void, Void> LoginBackgroundTask = new AsyncTask<String, Void, Void> () {
-            protected Void doInBackground(String... urls) {
-                ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "email";
-                    }
-                    @Override
-                    public String getValue() {
-                        return userCred;
-                    }
-                });
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "password";
-                    }
 
-                    @Override
-                    public String getValue() {
-                        return passwordCred;
-                    }
-                });
-                Log.e("URL", urls[0]);
-                JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
+        ServerRequest loginRequest = new ServerRequest() {
 
-                try {
-                    Log.e("URL2", urls[0]);
-                    JSONArray res = json.getJSONArray("records");
-                    if(res.isNull(0)){ //wrong credentials
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(LoginScreen.this, "Incorrect credentials. Please try again.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    } else { //correct credentials
+            @Override
+            protected void onSuccess(JSONObject data) {
+                Toast.makeText(LoginScreen.this, "Redirecting...", Toast.LENGTH_SHORT).show();
+                Context context = getApplicationContext();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.email_key), userCred);
+                editor.commit();
+                sharedPreferences = context.getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.password_key), passwordCred);
+                editor.commit();
+                Intent vaultHomeIntent = new Intent(LoginScreen.this, VaultHomeScreen.class);
+                startActivity(vaultHomeIntent);
+            }
 
-                            runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(LoginScreen.this, "Redirecting...", Toast.LENGTH_SHORT).show();
-                                login = true;
-                                Context context = getApplicationContext();
-                                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(getString(R.string.email_key), userCred);
-                                editor.commit();
-                                sharedPreferences = context.getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE);
-                                editor = sharedPreferences.edit();
-                                editor.putString(getString(R.string.password_key), passwordCred);
-                                editor.commit();
+            @Override
+            protected void onFailure(String message, JSONObject data) {
+                super.onFailure(message, data);
+                Toast.makeText(LoginScreen.this, "Invalid credentials. Please try again", Toast.LENGTH_SHORT).show();
+                //TODO: Add 1 to the lockdown counter
+            }
 
-                            }
-                        });
-
-
-
-                    }
-                    return null;
-                }
-                catch(Exception e){
-                    Log.e("ERROR", e.getMessage());
-                    return null;
-                }
+            @Override
+            protected void onError(String message, Integer code, JSONObject data) {
+                super.onError(message, code, data);
             }
         };
-        //TODO: Move this to onPostExecute
-        if (login == true) {
-            Intent intent = new Intent(this, VaultHomeScreen.class);
-            startActivity(intent);
-        }
-        else {
-            Log.e("FAILURE", "The login credentials were incorrect.");
-        }
-        LoginBackgroundTask.execute(server + "/login", "GET");
 
+        loginRequest
+                .setPath("bin/login")
+                .setParameter("email", userCred)
+                .setParameter("password", passwordCred)
+                .execute();
 
-            //TODO: Add 1 to the lockdown counter
-
-
-		}
+	}
 	
 	//Menu probably unneeded for login page
 	/*@Override
@@ -135,6 +101,7 @@ public class LoginScreen extends Activity {
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
 	}
+
 
 	public void forgotPassword(View view){
 		//TODO: open dialog box, send email to user, etc...
@@ -161,7 +128,6 @@ public class LoginScreen extends Activity {
                         });
 
         // create an alert dialog
-        //really, create one
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 	}

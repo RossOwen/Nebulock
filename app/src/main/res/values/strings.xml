@@ -61,4 +61,6 @@
     <string name="vaultLogs">Vault Logs</string>
     <string name="email_key">email_key</string>
     <string name="password_key">password_key</string>
+    <string name="vault_id_key">vault_id_key</string>
+    <string name="title_activity_vault_home">Vault Home Screen</string>
 </resources>

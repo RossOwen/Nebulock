@@ -4,35 +4,40 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.ArrayList;
+
+import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 public class VaultHomeScreen extends Activity {
 
     String server = "http://146.186.64.169:6917/bin";
     ListView listView;
     ArrayList<String> arrayList = new ArrayList<String>();
-
+    ArrayList<HashMap<String, String>> listAdapterData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault_home);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.vaultListView);
+        listAdapterData = new ArrayList<HashMap<String, String>>();
     }
 
     @Override
@@ -42,99 +47,107 @@ public class VaultHomeScreen extends Activity {
         final String email = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
         final String password = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
 
-        AsyncTask<String, Void, Void> createAccountBackgroundTask = new AsyncTask<String, Void, Void> () {
 
-            protected Void doInBackground(String... urls) {
-                ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "email";
-                    }
-                    @Override
-                    public String getValue() {
-                        return email;
-                    }
-                });
-                params.add(new NameValuePair() {
-                    @Override
-                    public String getName() {
-                        return "password";
-                    }
-                    @Override
-                    public String getValue() {
-                        return password;
-                    }
-                });
 
-                final JSONObject json = JSONParser.makeHttpRequest(urls[0], "GET", params);
 
-                String[] listObjects = new String[json.length()];
 
+        //createAccountBackgroundTask.execute(server + "/doGetVaults");
+
+        ServerRequest getVaultsRequest = new ServerRequest() {
+
+            @Override
+            protected void onSuccess(JSONObject data) {
+                super.onSuccess(data);
+                Log.e("Success", "getVaultsRequest success");
                 try {
-                    String result = json.getString("result");
-                    if(result.equals("success")){ //found email in the database - don't create the account
+                    Log.e("Data:", data.toString());
 
-                       final JSONArray vaults = json.getJSONArray("data");
+                    JSONArray vaults = data.getJSONArray("vaults");
+                    populateListViewWithVaults(vaults);
 
-                       for(int i = 0; i < vaults.length(); i++){
-                           JSONObject data = vaults.getJSONObject(i);
-                           int vaultID = data.getInt("vaultID");
-                           String vaultName = data.getString("vaultName");
-                           String vaultDescription = data.getString("vaultDescription");
-                           listObjects[i] = "test " + vaultID;
-                       }
 
-                        setVaults(listObjects);
-
-                    } else if(result.equals("failure")) { //email not found in database - create the account
-
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                try {
-                                    Toast.makeText(VaultHomeScreen.this, json.getString("message"), Toast.LENGTH_LONG).show();
-                                }
-                                catch(Exception e)
-                                {
-                                    Log.e("Error", e.getMessage());
-                                }
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                try {
-                                    Toast.makeText(VaultHomeScreen.this, json.getString("message"), Toast.LENGTH_LONG).show();
-                                }
-                                catch(Exception e)
-                                {
-                                    Log.e("Error", e.getMessage());
-                                }
-                            }
-                        });
-                    }
-                    return null;
+                } catch (org.json.JSONException e){
+                    e.printStackTrace();
                 }
-                catch(Exception e){
-                    Log.e("ERROR", e.getMessage());
-                    return null;
-                }
+
+
+
+
+            }
+
+            @Override
+            protected void onFailure(String message, JSONObject data) {
+                super.onFailure(message, data);
+                Log.e("Failure", "getVaultsRequest fail");
+                Toast.makeText(VaultHomeScreen.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            protected void onError(String message, Integer code, JSONObject data) {
+                super.onError(message, code, data);
             }
         };
 
+        getVaultsRequest
+                .setPath("bin/doGetVaults")
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .execute();
 
-        createAccountBackgroundTask.execute(server + "/doGetVaults");
     }
 
-    public void setVaults(String[] list) {
+    public void populateListViewWithVaults(JSONArray vaults){
 
-        Log.e("test", "" + list.length);
-        ArrayAdapter<String> vaultAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(vaultAdapter);
+        final ListView listView = (ListView)findViewById(R.id.vaultListView);
+        listAdapterData.clear();
+
+        for(int i = 0; i < vaults.length(); i++){
+            HashMap<String, String> vaultInfo = new HashMap<String, String>();
+            try {
+                vaultInfo.put("vaultName", ((JSONObject) vaults.get(i)).getString("vaultName"));
+                vaultInfo.put("vaultID", ((JSONObject) vaults.get(i)).getString("vaultID"));
+                vaultInfo.put("vaultDescription", ((JSONObject) vaults.get(i)).getString("vaultDescription"));
+                listAdapterData.add(vaultInfo);
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(
+            VaultHomeScreen.this,
+            listAdapterData,
+            R.layout.vault_list_item,
+            new String[] {"vaultName", "vaultID", "vaultDescription"},
+            new int[] {R.id.vaultItemName, R.id.vaultItemId, R.id.vaultItemDescription} );
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                int vaultId = Integer.parseInt(((HashMap)(listView.getItemAtPosition(position))).get("vaultID").toString());
+
+                Context context = getApplicationContext();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(getString(R.string.vault_id_key), vaultId);
+                editor.commit();
+                Toast.makeText(getBaseContext(), "Opening Vault " + vaultId + "...", Toast.LENGTH_LONG).show();
+                Intent openVaultIntent = new Intent(VaultHomeScreen.this, ViewVaultEntries.class);
+                startActivity(openVaultIntent);
+
+            }
+        });
     }
 
     public void createNewVault(View view) {
         Intent intent = new Intent(this, NewVault.class);
         startActivity(intent);
     }
+
+
+
 }
