@@ -56,7 +56,7 @@
             android:label="@string/title_activity_vault_contents" >
         </activity>
         <activity
-            android:name=".ViewVaultEntry"
+            android:name=".ViewVaultEntries"
             android:label="@string/title_activity_view_vault_entry" >
         </activity>
         <activity

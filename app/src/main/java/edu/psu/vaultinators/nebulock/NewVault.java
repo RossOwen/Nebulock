@@ -49,7 +49,6 @@ public class NewVault extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        //def for reals
         if (id == R.id.action_settings) {
             return true;
         }
@@ -72,6 +71,8 @@ public class NewVault extends Activity {
 
                 @Override
                 protected void onSuccess(JSONObject data) {
+                    Toast.makeText(getApplicationContext(), "Vault added to your account.", Toast.LENGTH_SHORT).show();
+                    finish();
                     super.onSuccess(data);
 
                 }

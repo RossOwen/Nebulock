@@ -3,11 +3,16 @@ package edu.psu.vaultinators.nebulock;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -94,7 +99,7 @@ public class VaultHomeScreen extends Activity {
 
     public void populateListViewWithVaults(JSONArray vaults){
 
-        ListView listView = (ListView)findViewById(R.id.vaultListView);
+        final ListView listView = (ListView)findViewById(R.id.vaultListView);
         listAdapterData.clear();
 
         for(int i = 0; i < vaults.length(); i++){
@@ -107,6 +112,7 @@ public class VaultHomeScreen extends Activity {
             } catch (JSONException e){
                 e.printStackTrace();
             }
+
         }
 
         SimpleAdapter adapter = new SimpleAdapter(
@@ -117,11 +123,31 @@ public class VaultHomeScreen extends Activity {
             new int[] {R.id.vaultItemName, R.id.vaultItemId, R.id.vaultItemDescription} );
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                int vaultId = Integer.parseInt(((HashMap)(listView.getItemAtPosition(position))).get("vaultID").toString());
+
+                Context context = getApplicationContext();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(getString(R.string.vault_id_key), vaultId);
+                editor.commit();
+                Toast.makeText(getBaseContext(), "Opening Vault " + vaultId + "...", Toast.LENGTH_LONG).show();
+                Intent openVaultIntent = new Intent(VaultHomeScreen.this, ViewVaultEntries.class);
+                startActivity(openVaultIntent);
+
+            }
+        });
     }
 
     public void createNewVault(View view) {
         Intent intent = new Intent(this, NewVault.class);
         startActivity(intent);
     }
+
+
 
 }

@@ -102,14 +102,6 @@ public class LoginScreen extends Activity {
         startActivity(intent);
 	}
 
-    public boolean checkPassword(String password){
-        if ((password.length() < 6) || (!(password.matches(".*\\d.*")))){
-            Toast.makeText(LoginScreen.this, "Password must contain at least six characters and at least one number. Please try another password.", Toast.LENGTH_LONG).show();
- 
-            return false;
-        }
-        return true;
-    }
 
 	public void forgotPassword(View view){
 		//TODO: open dialog box, send email to user, etc...
