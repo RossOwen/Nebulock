@@ -63,6 +63,7 @@ public class addEntry extends Activity {
         if (entryName.equals("")){
             Toast.makeText(getApplicationContext(), "Please enter a name for the entry.", Toast.LENGTH_SHORT).show();
         }
+        //TODO: Implement a check to make sure an entry does not have the same name as any other entry
         else{
             ServerRequest newVaultRequest = new SecureServerRequest() {
 
@@ -76,6 +77,7 @@ public class addEntry extends Activity {
 
                 @Override
                 protected void onFailure(String message, JSONObject data) {
+                    //TODO: if failed, an entry with entryName already exists in this vault; show a toast
                     super.onFailure(message, data);
                 }
 

@@ -36,7 +36,7 @@ import edu.psu.vaultinators.nebulock.util.NebulockSSLFactory;
 public class SecureServerRequest extends ServerRequest {
 
     public static final String SECURE_SCHEME = "https://";
-    public static final String SECURE_HOST = "146.186.64.168";
+    public static final String SECURE_HOST = "146.186.64.169";
     public static final int SECURE_PORT = 6918;
 
 

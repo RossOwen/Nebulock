@@ -95,6 +95,7 @@ public class ViewVaultEntries extends Activity {
                 entryInfo.put("entryName", ((JSONObject) entries.get(i)).getString("entryName"));
                 entryInfo.put("text", ((JSONObject) entries.get(i)).getString("text"));
                 entryInfo.put("emailCreatedBy", ((JSONObject) entries.get(i)).getString("emailCreatedBy"));
+                entryInfo.put("lastModifiedBy", ((JSONObject) entries.get(i)).getString("lastModifiedBy"));
                 listAdapterData.add(entryInfo);
             } catch (JSONException e){
                 e.printStackTrace();
@@ -106,8 +107,8 @@ public class ViewVaultEntries extends Activity {
                 ViewVaultEntries.this,
                 listAdapterData,
                 R.layout.entries_list_item,
-                new String[] {"entryName", "text", "emailCreatedBy"},
-                new int[] {R.id.entryItemName, R.id.entryItemText, R.id.entryItemEmailCreatedBy} );
+                new String[] {"entryName", "text", "emailCreatedBy", "lastModifiedBy"},
+                new int[] {R.id.entryItemName, R.id.entryItemText, R.id.entryItemEmailCreatedBy, R.id.entryItemLastModifiedBy} );
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

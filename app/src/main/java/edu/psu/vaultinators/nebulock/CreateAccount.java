@@ -75,7 +75,7 @@ public class CreateAccount extends Activity{
             Toast.makeText(getApplicationContext(), "Email and Confirm Email must be identical", Toast.LENGTH_SHORT).show();
         }
         else if (!checkPassword(passwordCred)){
-            Toast.makeText(CreateAccount.this, "Password must contain at least seven characters and at least one number. Please try another password.", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreateAccount.this, "Password must contain at least seven characters, at least one number, one uppercase and one lowercase digit, and no whitespace. Please try another password.", Toast.LENGTH_LONG).show();
         }
         else if (!passwordCred.equals(confirmPasswordCred)) {
             Toast.makeText(getApplicationContext(), "Password and Confirm Password must be identical.", Toast.LENGTH_SHORT).show();

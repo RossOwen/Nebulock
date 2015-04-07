@@ -35,81 +35,94 @@
         </activity>
         <activity
             android:name=".CreateAccount"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name=".KeyringInformation"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name=".CreateKeyring"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name=".VaultContents"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_vault_contents" >
         </activity>
         <activity
             android:name=".ViewVaultEntries"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_view_vault_entry" >
         </activity>
         <activity
             android:name=".EditVaultEntry"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_edit_vault_entry" >
         </activity>
         <activity
             android:name=".VaultHomeScreen"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_vault_home" >
         </activity>
         <activity
             android:name=".VaultOptions"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_vault_options" >
         </activity>
         <activity
             android:name=".addEntry"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_entry" >
         </activity>
         <activity
             android:name=".vaultLogs"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_vault_logs" >
         </activity>
         <activity
             android:name=".manageDelegates"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_manage_delegates" >
         </activity>
         <activity
             android:name=".AddDelegate"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_delegate" >
         </activity>
         <activity
             android:name=".NewVault"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_new_vault" >
         </activity>
         <activity
             android:name=".manageContacts"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_manage_contacts" >
         </activity>
         <activity
             android:name=".ContactInfo"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_contact_info" >
         </activity>
         <activity
             android:name=".AddContact"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_contact" >
         </activity>
         <activity
             android:name=".EditContact"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_edit_contact" >
-        </activity>
-        <activity
-            android:name=".vaultLockOut"
-            android:label="@string/title_activity_vault_lock_out" >
         </activity>
     </application>
 
