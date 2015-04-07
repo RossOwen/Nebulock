@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 
-public class ViewVaultEntries extends Activity {
+public class ViewVaultEntries extends Activity implements EditEntries.refreshEntries {
 
     String server = "http://146.186.64.169:6917/bin";
     ListView listView;
@@ -50,39 +52,7 @@ public class ViewVaultEntries extends Activity {
         final String email = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
         final String password = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
         final String vaultId = (getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE)).getString(getString(R.string.vault_id_key), "-1");
-
-        ServerRequest getEntriesRequest = new SecureServerRequest() {
-            @Override
-            protected void onSuccess(JSONObject data) {
-                super.onSuccess(data);
-                Log.e("Success", "getEntriesRequest success");
-                try {
-                    Log.e("Data:", data.toString());
-
-                    JSONArray entries = data.getJSONArray("entries");
-                    populateListViewWithEntries(entries);
-
-                } catch (org.json.JSONException e){
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            protected void onFailure(String message, JSONObject data) {
-                super.onFailure(message, data);
-                Log.e("Failure", "getEntriesRequest fail");
-                Toast.makeText(ViewVaultEntries.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
-
-            }
-            @Override
-            protected void onError(String message, Integer code, JSONObject data) {
-                super.onError(message, code, data);
-            }
-        };
-
-        getEntriesRequest
-                .setPath("bin/doGetEntries")
-                .setParameter("vaultID", vaultId)
-                .execute();
+        getEntries(vaultId);
     }
 
     public void populateListViewWithEntries(JSONArray entries){
@@ -112,10 +82,34 @@ public class ViewVaultEntries extends Activity {
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //TODO: add a dialog box - edit, delete, cancel
+                final String entryName = ((HashMap) (listView.getItemAtPosition(position))).get("entryName").toString();
+                final String entryDesc = ((HashMap) (listView.getItemAtPosition(position))).get("text").toString();
+                final String lastModifiedBy = ((HashMap) (listView.getItemAtPosition(position))).get("lastModifiedBy").toString();
+                final String vaultId = (getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE)).getString(getString(R.string.vault_id_key), "-1");
+                final String email = (getSharedPreferences(getString(R.string.email_key), Context.MODE_PRIVATE)).getString(getString(R.string.email_key),"");
+                final String password = (getSharedPreferences(getString(R.string.password_key), Context.MODE_PRIVATE)).getString(getString(R.string.password_key),"");
+
+                Context context = getApplicationContext();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.vault_id_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.vault_id_key), vaultId);
+                editor.commit();
+
+                Bundle args = new Bundle();
+                args.putString("vaultID", vaultId);
+                args.putString("email", email);
+                args.putString("password", password);
+                args.putString("name", entryName);
+                args.putString("description", entryDesc);
+                args.putString("lastModifiedBy", lastModifiedBy);
+                EditEntries ee = new EditEntries();
+                ee.setArguments(args);
+                ee.show(getFragmentManager(), "Entry Options");
+                getEntries(vaultId);
 
             }
         });
@@ -151,5 +145,45 @@ public class ViewVaultEntries extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getEntries(String vaultId){
+
+        ServerRequest getEntriesRequest = new SecureServerRequest() {
+            @Override
+            protected void onSuccess(JSONObject data) {
+                super.onSuccess(data);
+                Log.e("Success", "getEntriesRequest success");
+                try {
+                    Log.e("Data:", data.toString());
+
+                    JSONArray entries = data.getJSONArray("entries");
+                    populateListViewWithEntries(entries);
+
+                } catch (org.json.JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            protected void onFailure(String message, JSONObject data) {
+                super.onFailure(message, data);
+                Log.e("Failure", "getEntriesRequest fail");
+                Toast.makeText(ViewVaultEntries.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
+
+            }
+            @Override
+            protected void onError(String message, Integer code, JSONObject data) {
+                super.onError(message, code, data);
+            }
+        };
+
+        getEntriesRequest
+                .setPath("bin/doGetEntries")
+                .setParameter("vaultID", vaultId)
+                .execute();
+    }
+
+    public void refreshEntries(String vaultID) {
+        getEntries(vaultID);
     }
 }
