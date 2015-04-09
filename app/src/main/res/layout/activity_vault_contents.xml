@@ -18,6 +18,7 @@
         android:text="Create a New Entry"
         android:id="@+id/createEntryButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="addEntryToVault"/>
 
 </RelativeLayout>

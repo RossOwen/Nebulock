@@ -38,6 +38,10 @@
     <string name="editContact">Edit Contact</string>
     <string name="changeDescription">Change Description</string>
     <string name="deleteVault">Delete This Vault</string>
+    <string name="deleteTheVault">Delete</string>
+    <string name="openVault">Open</string>
+    <string name="editVault">Edit</string>
+    <string name="editEntry">Edit</string>
     <string name="addDel">Add Delegate</string>
     <string name="hello_world">Hello world!</string>
     <string name="vaultContent">Vault Contents Here:</string>
@@ -53,14 +57,23 @@
     <string name="title_activity_new_vault">NewVault</string>
     <string name="title_activity_manage_contacts">manageContacts</string>
     <string name="title_activity_contact_info">ContactInfo</string>
-    <string name="title_activity_add_contact">AddContac</string>
+    <string name="title_activity_add_contact">AddContact</string>
     <string name="title_activity_edit_contact">EditContact</string>
-    <string name="insertEntry">Insert Entry</string>
+    <string name="insertEntryName">Entry Name: </string>
     <string name="submitText">Submit</string>
     <string name="manageDel">Manage Delegates</string>
     <string name="vaultLogs">Vault Logs</string>
     <string name="email_key">email_key</string>
     <string name="password_key">password_key</string>
     <string name="vault_id_key">vault_id_key</string>
+    <string name="add_entry_name">Placeholder Entry Name</string>
     <string name="title_activity_vault_home">Vault Home Screen</string>
+    <string name="editEntryChoice">What would you like to do with this entry?</string>
+    <string name="editTheEntry">Edit Entry</string>
+    <string name="deleteTheEntry">Delete Entry</string>
+    <string name="cancelEdit">Cancel</string>
+    <string name="editVaultChoice">What would you like to do with this vault?</string>
+    <string name="title_activity_vault_lock_out">vaultLockOut</string>
+    <string name="label_confirm">Yes</string>
+    <string name="label_deny">No</string>
 </resources>

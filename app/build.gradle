@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "edu.psu.vaultinators.nebulock"
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 18
     }
 
@@ -21,4 +21,5 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile files('libs/javax.mail.jar')
+    compile files('libs/passay-1.0.jar')
 }

@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import edu.psu.vaultinators.nebulock.util.SecureServerRequest;
 import edu.psu.vaultinators.nebulock.util.ServerRequest;
 
 public class LoginScreen extends Activity {
@@ -50,7 +51,7 @@ public class LoginScreen extends Activity {
         final String userCred = username.getText().toString();
         final String passwordCred = password.getText().toString();
 
-        ServerRequest loginRequest = new ServerRequest() {
+        ServerRequest loginRequest = new SecureServerRequest() {
 
             @Override
             protected void onSuccess(JSONObject data) {
